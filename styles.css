@@ -1,0 +1,150 @@
+/* ======================= GLOBAL */
+
+:root{
+   --light-color: #f8f8f2;
+   --dark-color: #282a36;
+   --red-color: #ff5555;
+   --green-color: #50fa7b;
+}
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   list-style: none;
+
+}
+
+html {
+   font-size: 62.5%;
+}
+
+body {
+   font-size: 1.6rem;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   background-color: var(--light-color);
+
+}
+
+a {
+   text-decoration: none;
+}
+
+button {
+   font-size: inherit;
+}
+
+/* ======================= HEADER */
+
+
+#main-header {
+   background-color: var(--dark-color);
+   height: 70px;
+   display: flex;
+   align-items: center;
+   padding: 0 2rem;
+}
+
+#main-header i {
+   color: var(--green-color);
+   margin-right: 2rem;
+}
+
+#main-header h2 {
+   color: var(--light-color);
+
+}
+
+
+/* ======================= MAIN-CONTENT */
+
+.main-content {
+   display: flex;
+   margin: 3rem 2rem 0;
+   align-items: flex-start;
+   justify-content: space-between;
+   gap: 2rem;
+}
+
+.main-content > :first-child {
+   flex: 60%;
+   
+}
+
+.main-content > :first-child video {
+   width: 100%;
+}
+
+.main-content > :last-child {
+   flex: 40%;
+}
+
+
+/* ======================= DATA-TABLE */
+
+
+.data-table {
+   /* width: 100%; */
+   border-spacing: 0;
+   font-size: 1.4rem;  
+   /* flex: 50%; */
+   /* border-radius: 0.5rem; */
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+
+
+
+table tr {
+
+   background-color: var(--dark-color);
+   /* text-align: left; */
+   color: var(--light-color);
+
+}
+
+table tbody tr{
+
+   opacity: 0.9;
+}
+
+table tbody tr:hover {
+
+   opacity: 1;
+}
+
+table th {
+
+   padding: 0.5rem 1rem;
+   font-weight: normal;
+}
+
+table td {
+   text-align: center;
+   padding: 1rem 2rem;
+   
+}
+
+
+/* ======================= STOPWATCH */
+
+.stopwatch {
+   background-color: var(--dark-color);
+   width: 140px;
+   margin: 0 auto 2rem;
+   color: white;
+   padding: 1rem;
+   border-radius: 1rem;
+   text-align: center;
+}
+
+.stopwatch h3 {
+   margin-bottom: 1rem;
+   font-size: 1.6rem;
+}
+
+.stopwatch p {
+   font-size: 2.4rem;
+}
