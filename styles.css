@@ -23,6 +23,8 @@ body {
    font-size: 1.6rem;
    font-family: Verdana, Geneva, Tahoma, sans-serif;
    background-color: var(--light-color);
+   /* height: 100vh; */
+   /* overflow: hidden; */
 
 }
 
@@ -60,14 +62,14 @@ button {
 
 .main-content {
    display: flex;
-   margin: 3rem 2rem 0;
+   padding: 3rem 2rem 0;
    align-items: flex-start;
    justify-content: space-between;
    gap: 2rem;
 }
 
 .main-content > :first-child {
-   flex: 60%;
+   flex: 50%;
    
 }
 
@@ -76,7 +78,9 @@ button {
 }
 
 .main-content > :last-child {
-   flex: 40%;
+   flex: 50%;
+   overflow-y: auto;
+   height: calc(100vh - 12rem);
 }
 
 
@@ -84,9 +88,11 @@ button {
 
 
 .data-table {
-   /* width: 100%; */
+   width: 100%;
    border-spacing: 0;
-   font-size: 1.4rem;  
+   font-size: 1.2rem;
+   /* height: 300px;  
+   overflow: scroll; */
    /* flex: 50%; */
    /* border-radius: 0.5rem; */
 }
@@ -117,23 +123,30 @@ table tbody tr:hover {
 
 table th {
 
-   padding: 0.5rem 1rem;
+   padding: 0.5rem;
    font-weight: normal;
 }
 
 table td {
    text-align: center;
-   padding: 1rem 2rem;
+   padding: 1rem 0.5rem;
    
 }
 
 
 /* ======================= STOPWATCH */
 
+.stopwatches {
+   display: flex;
+   margin-top: 3rem;
+   justify-content: space-between;
+   align-items: center;
+}
+
 .stopwatch {
    background-color: var(--dark-color);
-   width: 200px;
-   margin: 0 auto 2rem;
+   /* width: 170px; */
+   /* margin: 0 auto 2rem; */
    color: white;
    padding: 1rem;
    border-radius: 1rem;
@@ -142,7 +155,9 @@ table td {
 
 .stopwatch h3 {
    margin-bottom: 1rem;
-   font-size: 1.6rem;
+   font-size: 1.4rem;
+   font-weight: normal;
+   text-transform: uppercase;
 }
 
 .stopwatch p {
