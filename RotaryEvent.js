@@ -1,14 +1,14 @@
 class RotaryEvent {
-   constructor (vehicleID, situation, vehicleArrived, vehicleLeft, waitTime, leader, follower, timeBetween) {
-      this.vehicleID = vehicleID;
+   constructor (id, situation, arrivalTime, exitTime, waitTime, leaderTime, followerTime, timeBetween) {
+      this.id = id;
       this.situation = situation;
-      this.vehicleArrived = vehicleArrived;
-      this.vehicleLeft = vehicleLeft;
+      this.arrivalTime = arrivalTime;
+      this.exitTime = exitTime;
       this.waitTime = waitTime;
 
       
-      this.leader = leader;
-      this.follower = follower;
+      this.leaderTime = leaderTime;
+      this.followerTime = followerTime;
       this.timeBetween = timeBetween;
    }
 
