@@ -235,7 +235,7 @@ const UI = {
 
       if (stopwatch === 'first') {
          firstStopwatchUI.lastElementChild.textContent = formattedTime;
-         firstStopwatchUI.firstElementChild.textContent = `V${id}: Chegada`;
+         firstStopwatchUI.firstElementChild.textContent = `V${id}: Tempo de espera`;
 
       }
       if (stopwatch === 'second') {
