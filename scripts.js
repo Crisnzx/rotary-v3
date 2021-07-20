@@ -13,6 +13,7 @@ let secondStopWatchActive = false;
 let toggleLeader = false;
 let pendingCars = false;
 
+
 let id = 0,
    situation = '',
    arrivalTime = 0,
@@ -55,7 +56,7 @@ const ListenersHandlers = {
       if (e.code === 'KeyW') {
          firstStopWatchActive = true;
          arrivalTime = videoUI.currentTime;
-         pendingCars = true;
+ 
       }
       if (e.code === 'KeyA') {
          firstStopWatchActive = false;
@@ -118,13 +119,15 @@ const ListenersHandlers = {
                   if (rotaryEvent.followerTime === -1) {
                      rotaryEvent.followerTime = followerTime;
                      rotaryEvent.timeBetween = rotaryEvent.followerTime - rotaryEvent.leaderTime;
-                     console.log(rotaryEvent.timeBetween);
                   }
    
                });
                UI.updateTable(rotaryEvents);
                pendingCars = false;
 
+            } else if(firstStopWatchActive) {
+
+               
             } else {
 
                const rotaryEvent = new RotaryEvent(
@@ -142,10 +145,7 @@ const ListenersHandlers = {
                UI.updateTable(rotaryEvents);
             }
 
-
-
             leaderTime = followerTime;
-
 
          }
 
@@ -153,8 +153,8 @@ const ListenersHandlers = {
       }
       if (e.code === 'KeyX') {
          rotaryEvents.pop();
-         id--;
          UI.updateTable(rotaryEvents);
+         id--;
 
       }
    }
