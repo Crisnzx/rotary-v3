@@ -61,26 +61,34 @@ button {
 /* ======================= MAIN-CONTENT */
 
 .main-content {
-   display: flex;
-   padding: 3rem 2rem 0;
-   align-items: flex-start;
-   justify-content: space-between;
-   gap: 2rem;
+   /* display: flex; */
+   padding: 3rem 2rem 5rem;
+   /* align-items: flex-start; */
+   /* justify-content: space-between; */
+   /* gap: 2rem; */
 }
 
+/* video and stopwatch section */
 .main-content > :first-child {
-   flex: 50%;
-   
+   display: flex;
+   /* align-items: flex-start; */
+   gap: 2rem;
+   margin-bottom: 2rem;
 }
 
 .main-content > :first-child video {
-   width: 100%;
+   /* width: 100%; */
+   flex: 70%;
 }
 
+.main-content > :first-child .stopwatches {
+   flex: 30%;
+}
+
+/* table section */
 .main-content > :last-child {
-   flex: 50%;
-   overflow-y: auto;
-   height: calc(100vh - 12rem);
+   overflow-x: auto;
+
 }
 
 
@@ -137,10 +145,14 @@ table td {
 /* ======================= STOPWATCH */
 
 .stopwatches {
-   display: flex;
-   margin-top: 3rem;
-   justify-content: space-between;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
    align-items: center;
+   gap: 1rem;
+}
+
+.stopwatches #timebetween-stopwatch {
+   grid-column: 1/ span 2;
 }
 
 .stopwatch {
@@ -163,3 +175,4 @@ table td {
 .stopwatch p {
    font-size: 2.4rem;
 }
+

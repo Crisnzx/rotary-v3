@@ -4,19 +4,25 @@ const rotaryEvents = [];
 // UI Elements
 const videoUI = document.querySelector('#rotary-video');
 const tableUI = document.querySelector('.data-table');
-const firstStopwatchUI = document.querySelector('#first-stopwatch');
-const secondStopwatchUI = document.querySelector('#second-stopwatch');
+const leftStopwatchUI = document.querySelector('#left-stopwatch');
+const rightStopwatchUI = document.querySelector('#right-stopwatch');
+const timeBetweenStopwatchUI = document.querySelector('#timebetween-stopwatch');
 
 // Global Variables
-let firstStopWatchActive = false;
-let secondStopWatchActive = false;
-let toggleLeader = false;
-let pendingCars = false;
+let leftStopwatchActive = false,
+   rightStopwatchActive = false,
+   timeBetweenStopwatchActive = false,
+   toggleLeader = false,
+   pendingCars = false,
+   toggleE = true,
+   toggleD = true;
 
 
-let id = 0,
+let idE = 0,
+   idD = 0,
    situation = '',
-   arrivalTime = 0,
+   arrivalTimeE = 0,
+   arrivalTimeD = 0,
    exitTime = 0,
    waitTime = 0,
    leaderTime = 0,
@@ -28,79 +34,129 @@ let id = 0,
 const ListenersHandlers = {
 
    timeUpdateHandler: (e) => {
-      if (firstStopWatchActive) {
 
-         const timeElapsed = (e.target.currentTime - arrivalTime);
+
+      if (leftStopwatchActive) {
+         const timeElapsed = (e.target.currentTime - arrivalTimeE);
          const timeElapsedDisplay = Math.trunc(timeElapsed);
          const formattedTime = UI.formatTime(timeElapsedDisplay);
-         UI.displayTime('first', formattedTime);
+
+
+         UI.displayTime('left', formattedTime);
+
+      } else {
+         UI.displayTime('left', '00:00');
+
       }
 
-      if (!firstStopWatchActive) {
+      if (rightStopwatchActive) {
+         const timeElapsed = (e.target.currentTime - arrivalTimeD);
+         const timeElapsedDisplay = Math.trunc(timeElapsed);
+         const formattedTime = UI.formatTime(timeElapsedDisplay);
+         UI.displayTime('right', formattedTime)
 
-         UI.displayTime('first', '00:00');
+      } else {
+         UI.displayTime('right', '00:00');
 
       }
 
-      if (secondStopWatchActive) {
+      if (timeBetweenStopwatchActive) {
          const timeElapsed = (e.target.currentTime - leaderTime);
          const timeElapsedDisplay = Math.trunc(timeElapsed);
          const formattedTime = UI.formatTime(timeElapsedDisplay);
-         UI.displayTime('second', formattedTime);
+         UI.displayTime('timeBetween', formattedTime);
       }
 
    },
 
    keyUpHandler: (e) => {
 
-      if (e.code === 'KeyW') {
-         firstStopWatchActive = true;
-         arrivalTime = videoUI.currentTime;
- 
-      }
-      if (e.code === 'KeyA') {
-         firstStopWatchActive = false;
-         exitTime = videoUI.currentTime;
-         waitTime = exitTime - arrivalTime;
-         followerTime = -1;
-         timeBetween = -1;
-         situation = 'Aceito';
-         pendingCars = true;
-         const rotaryEvent = new RotaryEvent(
-            id,
-            situation,
-            arrivalTime,
-            exitTime,
-            waitTime,
-            leaderTime,
-            followerTime,
-            timeBetween
-         );
+      if (e.code === 'KeyE') {
 
-         rotaryEvents.push(rotaryEvent);
-         UI.updateTable(rotaryEvents);
-         id++;
+         if (toggleE) {
+            leftStopwatchActive = true;
+            arrivalTimeE = videoUI.currentTime;
+            toggleE = false;
+         } else {
+            leftStopwatchActive = false;
+            exitTime = videoUI.currentTime;
+            waitTime = exitTime - arrivalTimeE;
+            followerTime = -1;
+            timeBetween = -1;
+            situation = 'Aceito';
+            pendingCars = true;
+            const rotaryEvent = new RotaryEvent(
+               `E${idE}`,
+               situation,
+               arrivalTimeE,
+               exitTime,
+               waitTime,
+               leaderTime,
+               followerTime,
+               timeBetween
+            );
+
+            rotaryEvents.push(rotaryEvent);
+            UI.updateTable(rotaryEvents);
+            idE++;
+            toggleE = true;
+         }
+
       }
+
+      if (e.code === 'KeyD') {
+
+         if (toggleD) {
+            rightStopwatchActive = true;
+            arrivalTimeD = videoUI.currentTime;
+            toggleD = false;
+         } else {
+            rightStopwatchActive = false;
+            exitTime = videoUI.currentTime;
+            waitTime = exitTime - arrivalTimeD;
+            followerTime = -1;
+            timeBetween = -1;
+            situation = 'Aceito';
+            pendingCars = true;
+            const rotaryEvent = new RotaryEvent(
+               `D${idD}`,
+               situation,
+               arrivalTimeD,
+               exitTime,
+               waitTime,
+               leaderTime,
+               followerTime,
+               timeBetween
+            );
+
+            rotaryEvents.push(rotaryEvent);
+            UI.updateTable(rotaryEvents);
+            idD++;
+            toggleD = true;
+         }
+
+      }
+
       if (e.code === 'KeyM') {
 
          if (!toggleLeader) {
             toggleLeader = !toggleLeader;
             leaderTime = videoUI.currentTime;
-            secondStopWatchActive = true;
+            timeBetweenStopwatchActive = true;
          } else {
             followerTime = videoUI.currentTime;
             timeBetween = followerTime - leaderTime;
 
-            if (firstStopWatchActive) {
+            if (leftStopwatchActive) {
 
-               exitTime = followerTime;
-               waitTime = exitTime - arrivalTime;
+
+               waitTime = followerTime - arrivalTimeE;
                situation = 'Rejeitado';
                const rotaryEvent = new RotaryEvent(
-                  id,
+                  `E${idE}`,
                   situation,
-                  arrivalTime,
-                  exitTime,
+                  arrivalTimeE,
+                  followerTime,
                   waitTime,
                   leaderTime,
                   followerTime,
@@ -108,11 +164,28 @@ const ListenersHandlers = {
                );
 
                rotaryEvents.push(rotaryEvent);
-               UI.updateTable(rotaryEvents);
+
 
             }
 
-            if(pendingCars) {
+            if(rightStopwatchActive) {
+               waitTime = followerTime - arrivalTimeD;
+               situation = 'Rejeitado';
+               const rotaryEvent = new RotaryEvent(
+                  `D${idD}`,
+                  situation,
+                  arrivalTimeD,
+                  followerTime,
+                  waitTime,
+                  leaderTime,
+                  followerTime,
+                  timeBetween
+               );
+
+               rotaryEvents.push(rotaryEvent);
+            }
+
+            if (pendingCars) {
                // atribui o valor do seguidor de -1 para o valor real
                rotaryEvents.forEach((rotaryEvent) => {
                   rotaryEvent
@@ -120,14 +193,14 @@ const ListenersHandlers = {
                      rotaryEvent.followerTime = followerTime;
                      rotaryEvent.timeBetween = rotaryEvent.followerTime - rotaryEvent.leaderTime;
                   }
-   
+
                });
-               UI.updateTable(rotaryEvents);
+
                pendingCars = false;
 
-            } else if(firstStopWatchActive) {
+            } else if (leftStopwatchActive || rightStopwatchActive) {
 
-               
+
             } else {
 
                const rotaryEvent = new RotaryEvent(
@@ -142,9 +215,9 @@ const ListenersHandlers = {
                );
 
                rotaryEvents.push(rotaryEvent);
-               UI.updateTable(rotaryEvents);
             }
 
+            UI.updateTable(rotaryEvents);
             leaderTime = followerTime;
 
          }
@@ -233,13 +306,20 @@ const UI = {
 
    displayTime: (stopwatch, formattedTime) => {
 
-      if (stopwatch === 'first') {
-         firstStopwatchUI.lastElementChild.textContent = formattedTime;
-         firstStopwatchUI.firstElementChild.textContent = `V${id}: Tempo de espera`;
+      if (stopwatch === 'left') {
+         leftStopwatchUI.lastElementChild.textContent = formattedTime;
+         leftStopwatchUI.firstElementChild.textContent = `E${idE}: Tempo de espera`;
 
       }
-      if (stopwatch === 'second') {
-         secondStopwatchUI.lastElementChild.textContent = formattedTime;
+
+      if (stopwatch === 'right') {
+         rightStopwatchUI.lastElementChild.textContent = formattedTime;
+         rightStopwatchUI.firstElementChild.textContent = `D${idD}: Tempo de espera`;
+
+      }
+
+      if (stopwatch === 'timeBetween') {
+         timeBetweenStopwatchUI.lastElementChild.textContent = formattedTime;
 
       }
    },
@@ -250,18 +330,57 @@ const UI = {
 
       rotaryEvents.forEach(rotaryEvent => {
 
-         content += `
+         if(rotaryEvent.id === -1) {
+            content += `
+            <tr>
+               <td></td>
+               <td></td>
+               <td>${rotaryEvent.leaderTime.toFixed(2)}s</td>
+               <td>${rotaryEvent.followerTime.toFixed(2)}s</td>
+               <td>${rotaryEvent.timeBetween.toFixed(2)}s</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            `;
+         } else if(rotaryEvent.id.substring(0, 1) === 'E') {
+            content += `
+            <tr>
+               <td>${rotaryEvent.id}</td>
+               <td>${rotaryEvent.situation}</td>
+               <td>${rotaryEvent.leaderTime.toFixed(2)}s</td>
+               <td>${rotaryEvent.followerTime === -1 ? '' : `${rotaryEvent.followerTime.toFixed(2)}s`}</td>
+               <td>${rotaryEvent.timeBetween === -1 ? '' : `${rotaryEvent.timeBetween.toFixed(2)}s`}</td>
+               <td>${rotaryEvent.arrivalTime.toFixed(2)}s</td>
+               <td>${rotaryEvent.exitTime.toFixed(2)}s</td>
+               <td>${rotaryEvent.waitTime.toFixed(2)}s</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            `;
+         } else {
+            content += `
          <tr>
-            <td>${rotaryEvent.id === -1 ? '' : `V${rotaryEvent.id}`}</td>
-            <td>${rotaryEvent.situation === -1 ? '' : rotaryEvent.situation}</td>
+            <td>${rotaryEvent.id}</td>
+            <td>${rotaryEvent.situation}</td>
             <td>${rotaryEvent.leaderTime.toFixed(2)}s</td>
             <td>${rotaryEvent.followerTime === -1 ? '' : `${rotaryEvent.followerTime.toFixed(2)}s`}</td>
             <td>${rotaryEvent.timeBetween === -1 ? '' : `${rotaryEvent.timeBetween.toFixed(2)}s`}</td>
-            <td>${rotaryEvent.arrivalTime === -1 ? '' : `${rotaryEvent.arrivalTime.toFixed(2)}s`}</td>
-            <td>${rotaryEvent.exitTime === -1 ? '' : `${rotaryEvent.exitTime.toFixed(2)}s`}</td>
-            <td>${rotaryEvent.waitTime === -1 ? '' : `${rotaryEvent.waitTime.toFixed(2)}s`}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>${rotaryEvent.arrivalTime.toFixed(2)}s</td>
+            <td>${rotaryEvent.exitTime.toFixed(2)}s</td>
+            <td>${rotaryEvent.waitTime.toFixed(2)}s</td>
          </tr>
          `;
+         }
+
+         
       });
 
       tableUI.lastElementChild.innerHTML = content;
