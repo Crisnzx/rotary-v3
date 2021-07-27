@@ -342,8 +342,6 @@ const UI = {
                <td></td>
                <td></td>
                <td></td>
-               <td></td>
-               <td></td>
             </tr>
             `;
          } else if(rotaryEvent.id.substring(0, 1) === 'E') {
@@ -357,9 +355,8 @@ const UI = {
                <td>${rotaryEvent.arrivalTime.toFixed(2)}s</td>
                <td>${rotaryEvent.exitTime.toFixed(2)}s</td>
                <td>${rotaryEvent.waitTime.toFixed(2)}s</td>
-               <td></td>
-               <td></td>
-               <td></td>
+               <td>Esquerda</td>
+               
             </tr>
             `;
          } else {
@@ -370,12 +367,10 @@ const UI = {
             <td>${rotaryEvent.leaderTime.toFixed(2)}s</td>
             <td>${rotaryEvent.followerTime === -1 ? '' : `${rotaryEvent.followerTime.toFixed(2)}s`}</td>
             <td>${rotaryEvent.timeBetween === -1 ? '' : `${rotaryEvent.timeBetween.toFixed(2)}s`}</td>
-            <td></td>
-            <td></td>
-            <td></td>
             <td>${rotaryEvent.arrivalTime.toFixed(2)}s</td>
             <td>${rotaryEvent.exitTime.toFixed(2)}s</td>
             <td>${rotaryEvent.waitTime.toFixed(2)}s</td>
+            <td>Direita</td>
          </tr>
          `;
          }

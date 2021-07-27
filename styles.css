@@ -43,13 +43,29 @@ button {
    background-color: var(--dark-color);
    height: 70px;
    display: flex;
+   justify-content: space-between;
    align-items: center;
    padding: 0 2rem;
 }
 
-#main-header i {
+#main-header div {
+   display: flex;
+   gap: 1.5rem;
+   align-items: center;
+}
+
+#main-header div:last-child a {
+   color: var(--light-color);
+   transition: all 0.2s ease;
+}
+
+#main-header div:last-child a:hover {
+   color: var(--red-color);
+}
+
+#main-header div:first-child i {
    color: var(--green-color);
-   margin-right: 2rem;
+   /* margin-right: 2rem; */
 }
 
 #main-header h2 {
