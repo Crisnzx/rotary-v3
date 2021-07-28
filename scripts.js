@@ -1,12 +1,12 @@
 const rotaryEvents = [];
 
-
 // UI Elements
 const videoUI = document.querySelector('#rotary-video');
 const tableUI = document.querySelector('.data-table');
 const leftStopwatchUI = document.querySelector('#left-stopwatch');
 const rightStopwatchUI = document.querySelector('#right-stopwatch');
 const timeBetweenStopwatchUI = document.querySelector('#timebetween-stopwatch');
+const downloadButtonUI = document.querySelector('#download-button');
 
 // Global Variables
 let leftStopwatchActive = false,
@@ -93,7 +93,8 @@ const ListenersHandlers = {
                waitTime,
                leaderTime,
                followerTime,
-               timeBetween
+               timeBetween,
+               'Esquerda'
             );
 
             rotaryEvents.push(rotaryEvent);
@@ -126,7 +127,8 @@ const ListenersHandlers = {
                waitTime,
                leaderTime,
                followerTime,
-               timeBetween
+               timeBetween,
+               'Direita'
             );
 
             rotaryEvents.push(rotaryEvent);
@@ -160,7 +162,8 @@ const ListenersHandlers = {
                   waitTime,
                   leaderTime,
                   followerTime,
-                  timeBetween
+                  timeBetween,
+                  'Esquerda'
                );
 
                rotaryEvents.push(rotaryEvent);
@@ -179,7 +182,8 @@ const ListenersHandlers = {
                   waitTime,
                   leaderTime,
                   followerTime,
-                  timeBetween
+                  timeBetween,
+                  'Direita'
                );
 
                rotaryEvents.push(rotaryEvent);
@@ -211,7 +215,8 @@ const ListenersHandlers = {
                   -1,
                   leaderTime,
                   followerTime,
-                  timeBetween
+                  timeBetween,
+                  -1
                );
 
                rotaryEvents.push(rotaryEvent);
@@ -225,11 +230,69 @@ const ListenersHandlers = {
 
       }
       if (e.code === 'KeyX') {
-         rotaryEvents.pop();
-         UI.updateTable(rotaryEvents);
-         id--;
+         const removedEvent = rotaryEvents.pop();
 
+         if(removedEvent.id !== -1) {
+            if(removedEvent.id.substring(0, 1) === 'E') {
+               idE--;
+            } else {
+               idD--;
+            }
+         }         
+         UI.updateTable(rotaryEvents);
       }
+   },
+
+   downloadButtonHandler: (e) => {
+      const matrixEvents = rotaryEvents.map((rotaryEvent) => {
+         const array = [];
+         array.push(rotaryEvent.id);
+         array.push(rotaryEvent.situation);
+         array.push(rotaryEvent.leaderTime);
+         array.push(rotaryEvent.followerTime);
+         array.push(rotaryEvent.timeBetween);
+         array.push(rotaryEvent.arrivalTime);
+         array.push(rotaryEvent.exitTime);
+         array.push(rotaryEvent.waitTime);
+         array.push(rotaryEvent.way)
+         return array;
+      });
+
+      const formattedEvents = matrixEvents.map((arrayEvent) => {
+
+         return (
+            arrayEvent.map((value) => {
+               
+               if(value === -1) {
+                  return '';
+               }
+
+               if(!isNaN(value)) {
+
+                  return value.toFixed(2);
+               } 
+               return value;
+            })
+         );
+      });
+      
+      
+      const csv = 'ID;Situacao;Veiculos prioritarios;;;Veiculo via secundaria;;;\n;;Lider;Seguidor;Intervalo/brecha;Chegada;Saida/rejeicao;Tempo de espera;Faixa\n' + UI.toCsv(formattedEvents);
+      console.log(csv);
+      let hiddenElement = document.createElement('a');
+
+      // SECOND APPROACH
+
+      // hiddenElement.setAttribute('href','data:text/csv; charset=utf-8, ' + encodeURIComponent(csv));
+      // hiddenElement.setAttribute('download', 'data.csv');
+      // document.body.appendChild(hiddenElement);
+      // hiddenElement.click();
+      // document.body.removeChild(hiddenElement);
+      hiddenElement.href = 'data:text/csv; charset=utf-8, ' + encodeURI(csv);
+      hiddenElement.target = '_blank';
+      hiddenElement.download = 'dados.csv';
+      hiddenElement.click();
+
    }
 }
 
@@ -237,13 +300,7 @@ const ListenersHandlers = {
 // Event Listeners
 videoUI.addEventListener('timeupdate', ListenersHandlers.timeUpdateHandler);
 window.addEventListener('keyup', ListenersHandlers.keyUpHandler);
-
-
-
-// Data Management
-const Data = {
-
-}
+downloadButtonUI.addEventListener('click', ListenersHandlers.downloadButtonHandler);
 
 // UI
 const UI = {
@@ -326,6 +383,7 @@ const UI = {
 
    updateTable: (rotaryEvents) => {
 
+
       let content = '';
 
       rotaryEvents.forEach(rotaryEvent => {
@@ -355,7 +413,7 @@ const UI = {
                <td>${rotaryEvent.arrivalTime.toFixed(2)}s</td>
                <td>${rotaryEvent.exitTime.toFixed(2)}s</td>
                <td>${rotaryEvent.waitTime.toFixed(2)}s</td>
-               <td>Esquerda</td>
+               <td>${rotaryEvent.way}</td>
                
             </tr>
             `;
@@ -370,7 +428,7 @@ const UI = {
             <td>${rotaryEvent.arrivalTime.toFixed(2)}s</td>
             <td>${rotaryEvent.exitTime.toFixed(2)}s</td>
             <td>${rotaryEvent.waitTime.toFixed(2)}s</td>
-            <td>Direita</td>
+            <td>${rotaryEvent.way}</td>
          </tr>
          `;
          }
@@ -379,6 +437,18 @@ const UI = {
       });
 
       tableUI.lastElementChild.innerHTML = content;
+   },
 
+   toCsv1: matrix => matrix.map(row => row.join(";")).join("\n"),
+
+   toCsv: (matrix) => {
+      return (
+         matrix.map((row) => {
+            return (
+               row.join(";")
+            );
+         }).join('\n')
+      );
    }
 }
+

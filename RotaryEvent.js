@@ -1,5 +1,5 @@
 class RotaryEvent {
-   constructor (id, situation, arrivalTime, exitTime, waitTime, leaderTime, followerTime, timeBetween) {
+   constructor (id, situation, arrivalTime, exitTime, waitTime, leaderTime, followerTime, timeBetween, way) {
       this.id = id;
       this.situation = situation;
       this.arrivalTime = arrivalTime;
@@ -10,6 +10,8 @@ class RotaryEvent {
       this.leaderTime = leaderTime;
       this.followerTime = followerTime;
       this.timeBetween = timeBetween;
+
+      this.way = way;
    }
 
 }
