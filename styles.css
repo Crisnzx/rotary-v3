@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
 /* ======================= GLOBAL */
 
 :root{
@@ -5,7 +7,11 @@
    --dark-color: #282a36;
    --red-color: #ff5555;
    --green-color: #50fa7b;
-}
+   --purple-color: #bd93f9;
+   --background: #f2f3f5;
+   --dark-background: #44475a;
+   --blue-background: #383a59;
+}  
 
 * {
    margin: 0;
@@ -22,9 +28,7 @@ html {
 body {
    font-size: 1.6rem;
    font-family: Verdana, Geneva, Tahoma, sans-serif;
-   background-color: var(--light-color);
-   /* height: 100vh; */
-   /* overflow: hidden; */
+   background-color: var(--background);
 
 }
 
@@ -45,12 +49,12 @@ button {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   padding: 0 2rem;
+   padding: 0 4rem;
 }
 
 #main-header div {
    display: flex;
-   gap: 1.5rem;
+   gap: 2rem;
    align-items: center;
 }
 
@@ -60,12 +64,11 @@ button {
 }
 
 #main-header div:last-child a:hover {
-   color: var(--red-color);
+   color: var(--purple-color);
 }
 
 #main-header div:first-child i {
    color: var(--green-color);
-   /* margin-right: 2rem; */
 }
 
 #main-header h2 {
@@ -77,25 +80,18 @@ button {
 /* ======================= MAIN-CONTENT */
 
 .main-content {
-   /* display: flex; */
-   padding: 3rem 2rem 5rem;
-   /* align-items: flex-start; */
-   /* justify-content: space-between; */
-   /* gap: 2rem; */
+   padding: 3rem 4rem 5rem;
    
 }
 
 /* video and stopwatch section */
 .main-content > :first-child {
-
    display: flex;
-   /* align-items: flex-start; */
    gap: 2rem;
    margin-bottom: 2rem;
 }
 
 .main-content > :first-child video {
-   /* width: 100%; */
    flex: 70%;
 }
 
@@ -117,10 +113,6 @@ button {
    width: 100%;
    border-spacing: 0;
    font-size: 1.2rem;
-   /* height: 300px;  
-   overflow: scroll; */
-   /* flex: 50%; */
-   /* border-radius: 0.5rem; */
 }
 
 table, th, td {
@@ -132,7 +124,6 @@ table, th, td {
 table tr {
 
    background-color: var(--dark-color);
-   /* text-align: left; */
    color: var(--light-color);
 
 }
@@ -174,12 +165,10 @@ table td {
 }
 
 .stopwatch {
-   background-color: var(--dark-color);
-   /* width: 170px; */
-   /* margin: 0 auto 2rem; */
+   background-color: var(--dark-background);
    color: white;
    padding: 1rem;
-   border-radius: 1rem;
+   border-radius: 0.2rem 0.2rem 1rem 1rem;
    text-align: center;
 }
 
@@ -191,7 +180,15 @@ table td {
 }
 
 .stopwatch p {
-   font-size: 2.4rem;
+   font-size: 3rem;
+   font-family: 'Rajdhani', sans-serif;
+   font-weight: 600;
+   background-color: white;
+   color: var(--dark-color);
+   display: inline-block;
+   width: 90px;
+   padding: 0.2rem 1rem;
+   border-radius: 3px;
 }
 
 @media (max-width: 950px) and (min-width: 601px) {
@@ -231,6 +228,80 @@ table td {
    .stopwatches {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      /* gap: 4rem; */
    }
+}
+
+/* ======================= FOOTER */
+
+footer {
+   background-color: var(--blue-background);
+   color: white;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   grid-gap: 0 4rem;
+   padding: 3rem 4rem;
+}
+
+footer div:first-child div {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   margin-bottom: 2rem;
+}
+
+footer div:first-child div i {
+   color: var(--green-color);
+}
+
+
+footer div:first-child p {
+   margin-bottom: 1rem;
+}
+
+footer div:nth-child(2) h3 {
+   margin-bottom: 2rem;
+}
+
+footer div:nth-child(2) ul li {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   padding-bottom: 1rem;
+   margin-bottom: 1rem;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+footer div:nth-child(2) a {
+   color: white;
+}
+
+footer div:nth-child(2) a:hover {
+   color: var(--purple-color);
+}
+
+footer div:nth-child(3) h3 {
+   margin-bottom: 2rem;
+}
+
+footer div:nth-child(3) div {
+   display: flex;
+   justify-content: center;
+   margin-top: 3rem;
+}
+
+footer div:nth-child(3) div a {
+   color: var(--purple-color);
+   transition: color 0.2s ease-in-out;
+}
+
+footer div:nth-child(3) div a:hover {
+   color: #9041ff;
+}
+
+footer #copyright {
+   grid-column: 1/ span 3;
+   background-color: var(--dark-color);
+   text-align: center;
+   margin-top: 3rem;
+   padding: 2rem 0;
 }
