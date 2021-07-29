@@ -8,6 +8,8 @@ const rightStopwatchUI = document.querySelector('#right-stopwatch');
 const timeBetweenStopwatchUI = document.querySelector('#timebetween-stopwatch');
 const downloadButtonUI = document.querySelector('#download-button');
 
+videoUI.src = localStorage.getItem('videoURL') || '';
+
 // Global Variables
 let leftStopwatchActive = false,
    rightStopwatchActive = false,

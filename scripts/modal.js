@@ -27,12 +27,15 @@ const HandleEvents = {
       e.target.value = '';
    
       const url = inputModalUI.value;
+
+      localStorage.setItem('videoURL', url);
       videoUI.src = url;
    },
 
    clickModalHandler: (e) => {
       if(e.target.id === 'modal-overlay' || e.target.id === 'cancel-button') {
          Modal.close();
+         inputModalUI.value = '';
       }
       
    }
