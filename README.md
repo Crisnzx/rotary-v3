@@ -19,4 +19,4 @@ OBS: Essa aplicação serve para analisar o comportamento e o tráfico de veícu
 
 ## Exemplo de uso
 
-<img src="https://i.imgur.com/X9TbJEf.png" alt="Print da aplicação" >
+<img src="https://i.imgur.com/oxxeNuK.png" alt="Print da aplicação" >
