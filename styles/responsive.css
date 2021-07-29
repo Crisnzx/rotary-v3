@@ -1,0 +1,44 @@
+
+/* ======================= RESPONSIVE */
+
+@media (max-width: 950px) and (min-width: 601px) {
+   .main-content > :first-child {
+      display: block;
+      gap: 2rem;
+      margin-bottom: 2rem;
+   }
+
+   .main-content > :first-child video {
+      width: 100%;
+      margin-bottom: 2rem;
+   }
+
+   .stopwatches {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      justify-content: space-around;
+      gap: 4rem;
+   }
+   
+   .stopwatches #timebetween-stopwatch {
+      grid-column: auto;
+   }
+}
+
+
+
+@media (max-width: 600px) {
+   .main-content > :first-child {
+      display: block;
+      gap: 2rem;
+      margin-bottom: 2rem;
+   }
+   .main-content > :first-child video {
+      width: 100%;
+      margin-bottom: 2rem;
+   }
+   .stopwatches {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+   }
+}

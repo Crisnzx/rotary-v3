@@ -1,44 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
-
-/* ======================= GLOBAL */
-
-:root{
-   --light-color: #f8f8f2;
-   --dark-color: #282a36;
-   --red-color: #ff5555;
-   --green-color: #50fa7b;
-   --purple-color: #bd93f9;
-   --background: #f2f3f5;
-   --dark-background: #44475a;
-   --blue-background: #383a59;
-}  
-
-* {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   list-style: none;
-
-}
-
-html {
-   font-size: 62.5%;
-}
-
-body {
-   font-size: 1.6rem;
-   font-family: Verdana, Geneva, Tahoma, sans-serif;
-   background-color: var(--background);
-
-}
-
-a {
-   text-decoration: none;
-}
-
-button {
-   font-size: inherit;
-}
 
 /* ======================= HEADER */
 
@@ -169,6 +128,19 @@ table td {
    background-color: var(--dark-color);
 }
 
+.btn.secondary {
+   margin: 0;
+   color: black;
+   background-color: var(--light-color);
+   transition: all 0.2s ease;
+}
+
+.btn.secondary:hover {
+   color: var(--light-color);
+   background-color: var(--purple-color);
+}
+
+
 /* ======================= STOPWATCH */
 
 .stopwatches {
@@ -207,7 +179,7 @@ table td {
    display: inline-block;
    width: 90px;
    padding: 0.2rem 1rem;
-   border-radius: 3px;
+   border-radius: 0 0 4px 4px;
 }
 
 
@@ -289,48 +261,4 @@ footer #copyright {
    text-align: center;
    margin-top: 3rem;
    padding: 2rem 0;
-}
-
-/* ======================= RESPONSIVE */
-
-
-
-@media (max-width: 950px) and (min-width: 601px) {
-   .main-content > :first-child {
-      display: block;
-      gap: 2rem;
-      margin-bottom: 2rem;
-   }
-
-   .main-content > :first-child video {
-      width: 100%;
-      margin-bottom: 2rem;
-   }
-
-   .stopwatches {
-      display: grid;
-      grid-template-columns: 1fr 1fr 2fr;
-      justify-content: space-around;
-      gap: 4rem;
-   }
-   
-   .stopwatches #timebetween-stopwatch {
-      grid-column: auto;
-   }
-}
-
-@media (max-width: 600px) {
-   .main-content > :first-child {
-      display: block;
-      gap: 2rem;
-      margin-bottom: 2rem;
-   }
-   .main-content > :first-child video {
-      width: 100%;
-      margin-bottom: 2rem;
-   }
-   .stopwatches {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-   }
 }

@@ -5,7 +5,10 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="./styles/global.css">
+   <link rel="stylesheet" href="./styles/styles.css">
+   <link rel="stylesheet" href="./styles/modal.css">
+   <link rel="stylesheet" href="./styles/responsive.css">
    <link rel="shortcut icon" href="#">
    <script src="https://kit.fontawesome.com/bf67364401.js" crossorigin="anonymous"></script>
    <title>Stopwatch Controller</title>
@@ -19,6 +22,7 @@
          <h2>Rotary Controller</h2>
       </div>
       <div>
+         <button id="modal-btn" class="btn secondary">Inserir vídeo</button>
          <a href="https://github.com/Crisnzx/rotary-v3" target="_blank"><i class="fab fa-github fa-2x"></i></a>
          <a href="https://www.linkedin.com/in/cristov%C3%A3o-neto-055686211/" target="_blank"><i
                class="fab fa-linkedin fa-2x"></i></a>
@@ -27,7 +31,7 @@
    <main class="main-content">
       <section>
          <video id="rotary-video" controls
-            src="https://r2---sn-bg0ezn7s.c.drive.google.com/videoplayback?expire=1627505802&ei=SowBYYONC4Wr7gKp7rT4CQ&ip=177.70.189.160&cp=QVRHWUZfVFhOQ1hPOjBhZW01Z2RVWkhmeURuVGxkUWJXVHpjTU01MndEdmVzajNpaVFRUlhlM2M&id=e05ae5514983c0b9&itag=18&source=webdrive&requiressl=yes&mh=i1&mm=32&mn=sn-bg0ezn7s&ms=su&mv=m&mvi=2&pl=24&sc=yes&ttl=transient&susc=dr&driveid=10zq2_DmXPGJWLDyKR4rwBGCvznMVSMT6&app=explorer&mime=video/mp4&vprv=1&prv=1&dur=131.726&lmt=1626716619204837&mt=1627490180&sparams=expire,ei,ip,cp,id,itag,source,requiressl,ttl,susc,driveid,app,mime,vprv,prv,dur,lmt&sig=AOq0QJ8wRQIgbcYkFyezH-L_z2lorfQ4s2NApqDuKnxh2fv0V6qBTCMCIQCMMIkBQ-rjWgR59jE4Tk9rkSKPKVhoU36KXdpMitoB6w==&lsparams=mh,mm,mn,ms,mv,mvi,pl,sc&lsig=AG3C_xAwRQIhAKN9yykEtLiCL1cEYYQbsIXlk892VKZ6Ym2o0vMzPvErAiAeKO0YQGlZYTUlQ0gUcsKBbd6PA-WntRPEMBv2EvY-Lg==&cpn=LFjEkpJef6SwNs_N&c=WEB_EMBEDDED_PLAYER&cver=1.20210725.0.0" type="video/mp4"></video>
+            src="https://r2---sn-bg0ezn7s.c.drive.google.com/videoplayback?expire=1627573225&ei=qZMCYYmKFJfrwtQPyduR4As&ip=177.70.189.160&cp=QVRHWUZfUlJQRlhPOnlBenY1bERCcHJ6M3k0QzE4MnlMUUtaS0hSRzJXTkNHbEJOY3hRanJHdTk&id=e05ae5514983c0b9&itag=18&source=webdrive&requiressl=yes&mh=i1&mm=32&mn=sn-bg0ezn7s&ms=su&mv=u&mvi=2&pl=24&ttl=transient&susc=dr&driveid=10zq2_DmXPGJWLDyKR4rwBGCvznMVSMT6&app=explorer&mime=video/mp4&vprv=1&prv=1&dur=131.726&lmt=1626716619204837&mt=1627558109&sparams=expire,ei,ip,cp,id,itag,source,requiressl,ttl,susc,driveid,app,mime,vprv,prv,dur,lmt&sig=AOq0QJ8wRAIgVV4QGWhAi41pJbHNzw5q53nU0wFk1OOOtX5G5DGBRBYCIGwbVqu9_a_aENeg59aX5LGWF6h8Cd14h0dCnzvfJY5o&lsparams=mh,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRAIgRUXKKfT-hxQMlHtlpKQ0XQrX2bmTw7Bp9yPGbmYtyz0CIFUvR2I-K4LjIsbNfoUwBW7M2_tiugslZCmUFxciSuzB&cpn=6S_LemQj_pWdqmGq&c=WEB_EMBEDDED_PLAYER&cver=1.20210727.1.0" type="video/mp4"></video>
          <div class="stopwatches">
             <div id="left-stopwatch" class="stopwatch">
                <h3>E0: Tempo de Espera</h3>
@@ -65,7 +69,7 @@
             <tbody>
             </tbody>
          </table>
-         <button class="btn" id="download-button" >Fazer download dos dados</button>
+         <button class="btn" id="download-button">Fazer download dos dados</button>
       </section>
    </main>
    <footer>
@@ -89,7 +93,7 @@
                <a href="https://github.com/Crisnzx">Github</a>
             </li>
             <li>
-               <i class="fas fa-envelope fa-2x" ></i>
+               <i class="fas fa-envelope fa-2x"></i>
                <p>cristovaon13@gmail.com</p>
             </li>
          </ul>
@@ -107,8 +111,25 @@
          <p>Copyright &copy; 2021</p>
       </div>
    </footer>
-   <script src="RotaryEvent.js"></script>
-   <script src="scripts.js"></script>
+
+   <div class="off" id="modal-overlay" >
+      <div id="modal-content">
+         <h3>Insira a URL do vídeo que você deseja analisar</h3>
+         <form>
+            <div class="input-group">
+               <label for="url">URL</label>
+               <input type="url">
+            </div>
+            <div id="buttons">
+               <button type="button" id="cancel-button" class="btn tertiary modal">Cancelar</button>
+               <button type="submit" class="btn modal">Enviar</button>
+            </div>
+         </form>
+      </div>
+   </div>
+   <script src="./scripts/RotaryEvent.js"></script>
+   <script src="./scripts/scripts.js"></script>
+   <script src="./scripts/modal.js"></script>
 </body>
 
 </html>
